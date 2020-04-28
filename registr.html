@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/registr.css">
+</head>
+<body>
+<div class="container">
+<div class="header">
+    <h2>Qeydiyyat Formu</h2>
+</div>
+<form class="form" id="form">
+    <div class="form-control">
+        <label>Ad və Soyad</label>
+        <input type="text" placeholder="Ad & Soyad" name="" id="username">
+        
+        <i class="fas fa-check-circle"></i>
+        <i class="fas fa-exclamation-circle"></i>
+        <small>Xəta mesajı</small>
+        
+    </div>
+    <div class="form-control">
+        <label>Email</label>
+        <input type="email" placeholder="Email" name="" id="email">
+        <i class="fas fa-check-circle"></i>
+        <i class="fas fa-exclamation-circle"></i>
+        <small>Xəta mesajı</small>
+        
+    </div>
+    <div class="form-control">
+        <label>Parol</label>
+        <input type="password" placeholder="Parol" name="" id="password" onclick="isEmail();">
+        <div id="toggle" onclick="show_hide();"></div>
+        <i class="fas fa-check-circle"></i>
+        <i class="fas fa-exclamation-circle"></i>
+        <small>Xəta mesajı</small>
+        
+    </div>
+
+    <div class="form-control">
+        <label>Təkrar parol</label>
+        <input type="password" placeholder="Təkrar parol" name="" id="password2">
+        <i class="fas fa-check-circle"></i>
+        <i class="fas fa-exclamation-circle"></i>
+        <small>Xəta mesajı</small>
+        
+    </div>
+    <button>Göndər</button>
+</form>
+    
+</div>
+
+<!-- Javascript code -->
+
+<script type="text/javascript">
+ const form=document.getElementById('form');
+const username=document.getElementById('username');
+const email=document.getElementById('email');
+const password=document.getElementById('password');
+const password2=document.getElementById('password2');
+
+  form.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    checkInputs();
+});
+function checkInputs() {
+    const usernameValue=username.value.trim();
+    const emailValue=email.value.trim();
+    const passwordValue=password.value.trim();
+    const password2Value=password2.value.trim();
+   
+   if(usernameValue===''){
+    setErrorFor(username, 'Adınızı daxil edin!');
+   }else{
+        setSuccessFor(username);
+    }
+
+    if(emailValue===''){
+     setErrorFor(email, 'Email daxil edin!');
+
+    }else if(!isEmail(emailValue)){
+       setErrorFor(email, 'Email düzgün deyil!')
+    }
+    else{
+        setSuccessFor(email);
+
+    }
+
+    if(passwordValue===''){
+    setErrorFor(password, 'Parolu daxil edin!');
+   }
+   else{
+        setSuccessFor(password);
+    }
+
+    if(password2Value===''){
+    setErrorFor(password2, 'Təkrar parolu dexil edin!');
+   }else if(passwordValue!==password2Value){
+    setErrorFor(password2, "Parol eyni deyil!")
+   }
+    else{
+        setSuccessFor(password2);
+    }
+}
+
+
+function setErrorFor(input, message) {
+    const formControl=input.parentElement;
+    const small=formControl.querySelector('small');
+ 
+ small.innerText=message;
+
+ formControl.className='form-control error';
+}  
+function setSuccessFor(input, message) {
+    const formControl=input.parentElement;
+    const small=formControl.querySelector('small');
+
+   formControl.className='form-control success';
+}  
+
+function isEmail(email) {
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+}
+
+
+const password_=document.getElementById('password');
+  const toggle=document.getElementById('toggle');
+ 
+    function show_hide() {
+
+        if(password_.type==='password'){
+            password_.setAttribute('type','text');
+            toggle.classList.add('hide')
+
+        }
+        else{
+            password_.setAttribute('type','password');
+            toggle.classList.remove('hide')
+
+
+        }
+    }
+</script>
+</body>
+</html>
